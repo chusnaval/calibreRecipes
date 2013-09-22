@@ -1,0 +1,57 @@
+#!/usr/bin/env  python
+__license__   = 'GPL v3'
+__author__    = 'Chus Naval, based on an earlier version by Jordi Balcells, Lorenzo Vigentini & Kovid Goyal'
+__copyright__ = '2008, Kovid Goyal kovid@kovidgoyal.net'
+description   = 'Main daily newspaper from Spain - v1.00 (22, September 2013)'
+__docformat__ = 'restructuredtext en'
+
+'''
+eldiario.es
+'''
+
+from calibre.web.feeds.news import BasicNewsRecipe
+
+class ElPais(BasicNewsRecipe):
+    __author__        = 'Kovid Goyal & Lorenzo Vigentini & Jordi Balcells & Chus Naval'
+    description   = 'Main daily newspaper from Spain'
+
+    cover_url      = 'http://www.eldiario.es/static/EDIDiario/images/logo.png'
+    title          = u'El Diario.es'
+    category       = 'News, politics, culture, economy, general interest'
+
+    language       = 'es'
+    timefmt        = '[%a, %d %b, %Y]'
+
+    oldest_article = 2
+    max_articles_per_feed = 15
+
+    use_embedded_content  = False
+    recursion             = 5
+    keep_only_tags = [ 
+                                dict(name='div', attrs={'class':'pg-headline'}),
+                                dict(name='div', attrs={'class':'subtitle bkn mce'}),
+                                dict(name='div', attrs={'class':'pg-body'}),
+                                dict(name='div', attrs={'class':'inset cf'})
+                                ]
+    remove_tags    = [
+                                 dict(name='div', attrs={'class':'md-breadcrumbs md'}),
+                                 dict(name='div', attrs={'class':'md-balcony md hspace'}),
+                                 dict(name='div', attrs={'class':'hot-topics md'}),
+                                 dict(name='div', attrs={'class':'ad-top-split rg-ad rg overlap-all'}),
+                                 dict(name='div', attrs={'class':'cp-tools md cf'}), 
+                                 dict(name='div', attrs={'class':'edi-header-user'}),    
+                                 dict(name='div', attrs={'class':'main-search fl'}),
+                                 dict(name='div', attrs={'class':'md-social md cl'}),
+                                 dict(name='div', attrs={'class':'pg-foot skin-sep-t-c3'}),
+                                 dict(name='div', attrs={'class':'cp-tools md cf'}),
+                                 dict(name='div', attrs={'class':'edi-comment-submit'}),
+                                 dict(name='div', attrs={'class':'bb-comment-list'}),
+                                 dict(name='div', attrs={'class':'ad-top-total rg-ad rg overlap-all'}),
+                                 dict(name='div', attrs={'class':'md-advertisement md hspace'}),
+                                 dict(name='div', attrs={'class':'rg-footer rg'})
+                                 ]
+
+    feeds          = [
+                        (u'Titulares de portada', u'http://eldiario.es.feedsportal.com/rss')
+                        ]
+
